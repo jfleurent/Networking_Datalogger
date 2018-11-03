@@ -1,16 +1,18 @@
-var http = require('http');
-
-//create a server object:
-http.createServer(function (req, res) {
-  res.write('Hello World!'); //write a response to the client
-  res.end(); //end the response
-}).listen(8080); //the server object listens on port 8080
-
 var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost:8080/Cluster0";
+var fs = require('fs');
+var path = process.cwd();
+var uri = fs.readFileSync(path + "\\mongodb url.txt");
 
-MongoClient.connect(url, function(err, db) {
-  if (err) {console.log("Database Failed"); throw err;}
-  console.log("Database created!");
-  db.close();
+MongoClient.connect(uri.toString(), function(err, client) {
+  if(err) console.log("conection failed: "+ uri);
+  
+   var database = client.db("DailyVoltages");
+   var object = {date : " 10/16/2018", volt1 : 90, volt2 : 74};
+   database.collection("voltages").insert(object,function(err, res) {
+    if (err) throw err;
+    console.log("1 document inserted");
+    client.close();
+  });
+   // perform actions on the collection object
+   client.close();
 });
