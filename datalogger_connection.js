@@ -1,30 +1,55 @@
 var http = require('http');
+var MongoClient = require('mongodb').MongoClient;
+var fs = require('fs');
+var path = process.cwd();
+var uri = fs.readFileSync(path + "\\mongodb url.txt");
 
-var obj,voltAvg,voltAvgValue,sensorAvg, 
-    sensorAvgValue, sensorMax, sensorMaxValue, 
-    sensorMin, sensorMinValue, sensorStd, 
-    sensorStdValue, sensorTot, sensorTotValue;
+var obj,voltAvgValue, 
+    sensorAvgValue, sensorMaxValue
+    ,sensorMinValue, sensorStdValue
+    , sensorTotValue, currentDate;
+
+var recordCount = 0;
+var recordTitle = 'record'+recordCount;
 
 var options = {
-        host: '',
+        host: '192.168.1.9',
         path: '/?command=DataQuery&uri=dl:Battery_Sensor&format=json&mode=most-recent&p1=1'
       };
-
+      
 function request(){
   var req = http.request(options,(res) => {
     console.log(`STATUS: ${res.statusCode}`);
     res.setEncoding('utf8');
     res.on('data', (chunk) => {
         obj = JSON.parse(chunk);
+        currentDate = obj.data[0].time.substring(0,10);
         ConvertJSON(obj);
     });
     res.on('end', () => {
-      console.log(voltAvg +  " : " + voltAvgValue  + " : " + sensorAvg + " : " + 
-      sensorAvgValue + " : " + sensorMax + " : " + sensorMaxValue + " : " + 
-      sensorMin + " : " + sensorMinValue + " : " + sensorStd + " : " + 
-      sensorStdValue+ " : " + sensorTot+ " : " + sensorTotValue)
-      console.log('No more data in response.');
+      console.log("BattV_Avg : " + voltAvgValue  + "BattSensor_Avg : " + 
+      sensorAvgValue + "BattSensor_Max : " + sensorMaxValue + 
+      " BattSensor_Min : " + sensorMinValue + " BattSensor_Std : " + 
+      sensorStdValue+ " BattSensor_Tot : " + sensorTotValue)
+
+      MongoClient.connect(uri.toString(), function(err, client) {
+        if(err) console.log("conection failed: "+ uri);
+        
+         var database = client.db("DailyVoltages");
+         var dataRecord = {BattV_Avg : voltAvgValue, 
+                          BattSensor_Avg : sensorAvgValue,
+                          BattSensor_Max : sensorMaxValue,
+                          BattSensor_Min : sensorMinValue, 
+                          BattSensor_Std : sensorStdValue,
+                          BattSensor_Tot : sensorTotValue};
+    
+         database.collection("voltages").insert({date : currentDate ,recordData : dataRecord});
+         // perform actions on the collection object
+         client.close();
+      });
+  
     });
+
   });
   
   req.on('error', (e) => {
@@ -38,29 +63,24 @@ setInterval(request,10000);
 
 function ConvertJSON(obj){
   for(i = 0; i < 6; i++){
+ 
     switch(i){
       case 0:
-      voltAvg = 'BattV_Avg';
       voltAvgValue = obj.data[0].vals[0];
       break;
       case 1:
-      sensorAvg = 'BattSensor_Avg';
       sensorAvgValue = obj.data[0].vals[1];
       break;
       case 2:
-      sensorMax = 'BattSensor_Max';
       sensorMaxValue = obj.data[0].vals[2];
       break;
       case 3:
-      sensorMin = 'BattSensor_Min';
       sensorMinValue = obj.data[0].vals[3];
       break;
       case 4:
-      sensorStd = 'BattSensor_Std';
       sensorStdValue = obj.data[0].vals[4];
       break;
       case 5:
-      sensorTot = 'BattSensor_Tot';
       sensorAvgValue = obj.data[0].vals[5];
       break;
     }
