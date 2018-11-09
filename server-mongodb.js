@@ -1,10 +1,8 @@
 var MongoClient = require('mongodb').MongoClient;
-var fs = require('fs');
-var path = process.cwd();
-var uri = fs.readFileSync(path + "\\mongodb url.txt");
 
-MongoClient.connect(uri.toString(), function(err, client) {
-  if(err) console.log("conection failed: "+ uri);
+
+MongoClient.connect('mongodb+srv://datalogger-server:datalogger@cluster0-wgo34.mongodb.net/test?retryWrites=true', function(err, client) {
+  if(err) console.log("conection failed: ");
   
    var database = client.db("DailyVoltages");
    var object = {date : " 10/16/2018", volt1 : 90, volt2 : 74};

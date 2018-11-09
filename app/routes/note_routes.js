@@ -6,7 +6,6 @@ module.exports = function(app, db) {
 		const details = {date : id };
 		db.collection('voltages').find(details).toArray(function (err, item) {
 			if (err) {
-				console.log(item);
 				res.send({ 'error': item });
 			} else {
 				res.send(item);
@@ -14,8 +13,8 @@ module.exports = function(app, db) {
 		});
 	});
 
-	app.post('/notes', (req, res) => {
-		res,sebd('hello');
+	var print = function(){
+		console.log('hello');
 		// var database = client.db("DailyVoltages");
         //  var dataRecord = {BattV_Avg : voltAvgValue, 
         //                   BattSensor_Avg : sensorAvgValue,
@@ -27,5 +26,7 @@ module.exports = function(app, db) {
         //  database.collection("voltages").insert({date : currentDate ,recordData : dataRecord});
          
         //  client.close();
-	});
+	}
+setInterval(print,10000);
+
 };
