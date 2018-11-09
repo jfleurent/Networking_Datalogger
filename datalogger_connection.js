@@ -1,65 +1,81 @@
 var http = require('http');
-var MongoClient = require('mongodb').MongoClient;
-var fs = require('fs');
-var path = process.cwd();
-var uri = fs.readFileSync(path + "\\mongodb url.txt");
+const express     = require ('express');
+const MongoClient = require('mongodb').MongoClient;
+const bodyParser  = require('body-parser');
+const db		  = require('./config/db');
+const app		  = express();
+const port = 8000;
 
-var obj,voltAvgValue, 
-    sensorAvgValue, sensorMaxValue
-    ,sensorMinValue, sensorStdValue
-    , sensorTotValue, currentDate;
+app.use(bodyParser.urlencoded({ extended: true }))
 
-var recordCount = 0;
-var recordTitle = 'record'+recordCount;
+MongoClient.connect(db.url, (err, database) => {
+	if (err) return console.log(err)
+	require('./app/routes')(app, database);
+	app.listen(port, () => {
+		console.log("We are live on " + port);
+	})
+})
 
-var options = {
-        host: '192.168.1.9',
-        path: '/?command=DataQuery&uri=dl:Battery_Sensor&format=json&mode=most-recent&p1=1'
-      };
+
+
+
+
+// var obj,voltAvgValue, 
+//     sensorAvgValue, sensorMaxValue
+//     ,sensorMinValue, sensorStdValue
+//     , sensorTotValue, currentDate;
+
+// var recordCount = 0;
+// var recordTitle = 'record'+recordCount;
+
+// var options = {
+//         host: '192.168.1.9',
+//         path: '/?command=DataQuery&uri=dl:Battery_Sensor&format=json&mode=most-recent&p1=1'
+//       };
       
-function request(){
-  var req = http.request(options,(res) => {
-    console.log(`STATUS: ${res.statusCode}`);
-    res.setEncoding('utf8');
-    res.on('data', (chunk) => {
-        obj = JSON.parse(chunk);
-        currentDate = obj.data[0].time.substring(0,10);
-        ConvertJSON(obj);
-    });
-    res.on('end', () => {
-      console.log("BattV_Avg : " + voltAvgValue  + "BattSensor_Avg : " + 
-      sensorAvgValue + "BattSensor_Max : " + sensorMaxValue + 
-      " BattSensor_Min : " + sensorMinValue + " BattSensor_Std : " + 
-      sensorStdValue+ " BattSensor_Tot : " + sensorTotValue)
+// function request(){
+//   var req = http.request(options,(res) => {
+//     console.log(`STATUS: ${res.statusCode}`);
+//     res.setEncoding('utf8');
+//     res.on('data', (chunk) => {
+//         obj = JSON.parse(chunk);
+//         currentDate = obj.data[0].time.substring(0,10);
+//         ConvertJSON(obj);
+//     });
+//     res.on('end', () => {
+//       console.log("BattV_Avg : " + voltAvgValue  + "BattSensor_Avg : " + 
+//       sensorAvgValue + "BattSensor_Max : " + sensorMaxValue + 
+//       " BattSensor_Min : " + sensorMinValue + " BattSensor_Std : " + 
+//       sensorStdValue+ " BattSensor_Tot : " + sensorTotValue)
 
-      MongoClient.connect(uri.toString(), function(err, client) {
-        if(err) console.log("conection failed: "+ uri);
+//       MongoClient.connect(uri.toString(), function(err, client) {
+//         if(err) console.log("conection failed: "+ uri);
         
-         var database = client.db("DailyVoltages");
-         var dataRecord = {BattV_Avg : voltAvgValue, 
-                          BattSensor_Avg : sensorAvgValue,
-                          BattSensor_Max : sensorMaxValue,
-                          BattSensor_Min : sensorMinValue, 
-                          BattSensor_Std : sensorStdValue,
-                          BattSensor_Tot : sensorTotValue};
+//          var database = client.db("DailyVoltages");
+//          var dataRecord = {BattV_Avg : voltAvgValue, 
+//                           BattSensor_Avg : sensorAvgValue,
+//                           BattSensor_Max : sensorMaxValue,
+//                           BattSensor_Min : sensorMinValue, 
+//                           BattSensor_Std : sensorStdValue,
+//                           BattSensor_Tot : sensorTotValue};
     
-         database.collection("voltages").insert({date : currentDate ,recordData : dataRecord});
-         // perform actions on the collection object
-         client.close();
-      });
+//          database.collection("voltages").insert({date : currentDate ,recordData : dataRecord});
+//          // perform actions on the collection object
+//          client.close();
+//       });
   
-    });
+//     });
 
-  });
+//   });
   
-  req.on('error', (e) => {
-    console.error(`problem with request: ${e.message}`);
-  });
+//   req.on('error', (e) => {
+//     console.error(`problem with request: ${e.message}`);
+//   });
 
-req.end();
-}
+// req.end();
+// }
 
-setInterval(request,10000);
+// setInterval(request,10000);
 
 function ConvertJSON(obj){
   for(i = 0; i < 6; i++){
