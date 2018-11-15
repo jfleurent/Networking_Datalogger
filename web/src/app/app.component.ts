@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import FusionCharts from 'fusioncharts/core';
-import Column2D from 'fusioncharts/viz/column2d';
-FusionCharts.addDep(Column2D);
+import line from 'fusioncharts/viz/line';
+FusionCharts.addDep(line);
 
 @Component({
   selector: 'app-root',
@@ -14,7 +14,7 @@ export class AppComponent {
 
   ngOnInit() {
     var chartInstance = new FusionCharts({
-      type: 'column2D',
+      type: 'line',
       width: '800', // Width of the chart
       height: (window.innerHeight /2), // Height of the chart
       dataFormat: 'json', // Data type
@@ -22,11 +22,12 @@ export class AppComponent {
       dataSource: {
           "chart": {
               "caption": "Datalogger information",
-              "subCaption": "",
+              "subCaption": "Displays the voltage being read from the datalogger",
               "xAxisName": "Time (s)",
               "yAxisName": "Voltage (V)",
-              "numberSuffix": "",
+              "numberSuffix": "V",
               "theme": "fusion",
+              "color" : "#29C3BE",
           },
           // Chart Data
           "data": [
@@ -429,7 +430,7 @@ export class AppComponent {
             {
             "label" : "495",
             "value" : "7"
-            }]
+          }]
       }
   });
 // Render
