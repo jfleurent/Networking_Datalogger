@@ -23,49 +23,49 @@ module.exports = function(app, db) {
 	});
 
 
-setInterval(request,10000); 
+// setInterval(request,10000); 
 
-function request(){
-  var req = http.request(options,(res) => {
-    console.log(`STATUS: ${res.statusCode}`);
-    res.setEncoding('utf8');
-    res.on('data', (chunk) => {
-        obj = JSON.parse(chunk);
-        currentDate = obj.data[0].time.substring(0,10);
-        ConvertJSON(obj);
-    });
-    res.on('end', () => {
-      console.log("BattV_Avg : " + voltAvgValue  + "BattSensor_Avg : " + 
-      sensorAvgValue + "BattSensor_Max : " + sensorMaxValue + 
-      " BattSensor_Min : " + sensorMinValue + " BattSensor_Std : " + 
-      sensorStdValue+ " BattSensor_Tot : " + sensorTotValue)
+// function request(){
+//   var req = http.request(options,(res) => {
+//     console.log(`STATUS: ${res.statusCode}`);
+//     res.setEncoding('utf8');
+//     res.on('data', (chunk) => {
+//         obj = JSON.parse(chunk);
+//         currentDate = obj.data[0].time.substring(0,10);
+//         ConvertJSON(obj);
+//     });
+//     res.on('end', () => {
+//       console.log("BattV_Avg : " + voltAvgValue  + "BattSensor_Avg : " + 
+//       sensorAvgValue + "BattSensor_Max : " + sensorMaxValue + 
+//       " BattSensor_Min : " + sensorMinValue + " BattSensor_Std : " + 
+//       sensorStdValue+ " BattSensor_Tot : " + sensorTotValue)
 
-      MongoClient.connect(uri.toString(), function(err, client) {
-        if(err) console.log("conection failed: "+ uri);
+//       MongoClient.connect(uri.toString(), function(err, client) {
+//         if(err) console.log("conection failed: "+ uri);
         
-         var database = client.db("DailyVoltages");
-         var dataRecord = {BattV_Avg : voltAvgValue, 
-                          BattSensor_Avg : sensorAvgValue,
-                          BattSensor_Max : sensorMaxValue,
-                          BattSensor_Min : sensorMinValue, 
-                          BattSensor_Std : sensorStdValue,
-                          BattSensor_Tot : sensorTotValue};
+//          var database = client.db("DailyVoltages");
+//          var dataRecord = {BattV_Avg : voltAvgValue, 
+//                           BattSensor_Avg : sensorAvgValue,
+//                           BattSensor_Max : sensorMaxValue,
+//                           BattSensor_Min : sensorMinValue, 
+//                           BattSensor_Std : sensorStdValue,
+//                           BattSensor_Tot : sensorTotValue};
     
-         database.collection("voltages").insert({date : currentDate ,recordData : dataRecord});
-         // perform actions on the collection object
-         client.close();
-      });
+//          database.collection("voltages").insert({date : currentDate ,recordData : dataRecord});
+//          // perform actions on the collection object
+//          client.close();
+//       });
   
-    });
+//     });
 
-  });
+//   });
   
-  req.on('error', (e) => {
-    console.error(`problem with request: ${e.message}`);
-  });
+//   req.on('error', (e) => {
+//     console.error(`problem with request: ${e.message}`);
+//   });
 
-req.end();
-}
+// req.end();
+// }
 
 function ConvertJSON(obj){
   for(i = 0; i < 6; i++){

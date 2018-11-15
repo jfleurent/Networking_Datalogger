@@ -18,8 +18,9 @@
   },
   "homepage": "https://github.com/jfleurent/Networking_Datalogger#readme",
   "dependencies": {
+    "@angular/cli": "^7.0.6",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
-    "mongodb": "^3.1.9"
+    "mongodb": "^2.2.36"
   }
 }
