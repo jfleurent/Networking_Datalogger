@@ -1,0 +1,26 @@
+{
+  "name": "networking_datalogger",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jfleurent/Networking_Datalogger.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jfleurent/Networking_Datalogger/issues"
+  },
+  "homepage": "https://github.com/jfleurent/Networking_Datalogger#readme",
+  "dependencies": {
+    "@angular/cli": "^7.0.6",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "mongodb": "^2.2.36"
+  }
+}
