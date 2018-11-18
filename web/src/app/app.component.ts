@@ -16,7 +16,7 @@ export class AppComponent {
     var chartInstance = new FusionCharts({
       type: 'line',
       width: '800', // Width of the chart
-      height: (window.innerHeight /2), // Height of the chart
+      height: '400', // Height of the chart
       dataFormat: 'json', // Data type
       renderAt:'chart-container', //container where the chart will render
       dataSource: {

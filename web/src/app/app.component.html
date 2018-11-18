@@ -1,3 +1,10 @@
 <body>
-  <div id="chart-container">FusionCharts XT will load here!</div>
+  <div id="chart-container"></div>
+  <div id="date-picker">
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </div>
 </body>
