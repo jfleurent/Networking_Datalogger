@@ -11,7 +11,7 @@ html,body, #background
 #chart-container
 {
   margin: 0 auto;
-  padding-top: 50px;
+  padding-top: 20px;
   width: 800px;
 }
 
@@ -27,4 +27,14 @@ html,body, #background
   border-radius: 10px;
   left:0;
   right: 0;
+}
+
+#fgcu_logo_container
+{
+  background-color: #FFF;
+}
+#img_holder
+{
+  width:205px;
+  float: left;
 }

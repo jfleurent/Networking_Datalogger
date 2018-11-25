@@ -11,7 +11,9 @@ FusionCharts.addDep(line);
 export class AppComponent {
 
   title = 'DataLoggerClient';
-
+  onClickMe() {
+    
+  }
   ngOnInit() {
     var chartInstance = new FusionCharts({
       type: 'line',
