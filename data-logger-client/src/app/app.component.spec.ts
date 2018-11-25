@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'DataLoggerClient'`, () => {
+  it(`should have as title 'data-logger-client'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('DataLoggerClient');
+    expect(app.title).toEqual('data-logger-client');
   });
 
   it('should render title in a h1 tag', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to DataLoggerClient!');
+    expect(compiled.querySelector('h1').textContent).toContain('Welcome to data-logger-client!');
   });
 });
