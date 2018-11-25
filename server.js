@@ -1,14 +1,19 @@
-var MongoClient = require('mongodb').MongoClient;
-var fs = require('fs');
-var path = process.cwd();
-var uri = fs.readFileSync(path + "\\mongodb url.txt");
 
-MongoClient.connect(uri.toString(), function(err, client) {
-  if(err) console.log("conection failed: "+ uri);
-  
-   var database = client.db("DailyVoltages");
-   var object = {date : " 10/16/2018", volt1 : 90, volt2 : 74};
-   database.collection("voltages").update({date : " 10/16/2018"},{$set: {volt3 : 29}},false,true);
-   // perform actions on the collection object
-   client.close();
-});
+var http = require('http');
+
+const express  = require ('express');
+const MongoClient = require('mongodb').MongoClient;
+const bodyParser  = require('body-parser');
+const db	= require('./config/db');
+const app	 = express();
+const port = 8000;
+
+app.use(bodyParser.urlencoded({ extended: true }))
+
+MongoClient.connect(db.url, (err, database) => {
+	if (err) return console.log(err)
+	require('./app/routes')(app, database);
+	app.listen(port, () => {
+		console.log("We are live on " + port);
+	})
+})
