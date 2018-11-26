@@ -8,9 +8,16 @@ const test = require('./routes/test');
 
 app.use(helmet());
 app.use(morgan('tiny'));
+
+ //temp////
+const port = process.env.PORT || 80;
+if (process.argv.length <= 2) {
+    console.log("there's not enough methods");
+} else {
+const datalogger_address = process.argv[2];
+console.log(`DataLogger Address: ${datalogger_address}`);
+}
 app.use('', test);
 
-//temp////
-const port = 80;
 app.listen(port,() => console.log(`Listening on port ${port}...`));
 ////////
