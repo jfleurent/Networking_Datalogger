@@ -9,17 +9,17 @@ const dataLoggerSchema = new mongoose.Schema({
     date: String,
     time: String,
     index: Number,
-    val: [ Number ]
+    voltage: Number
 });
 
 const DataLogger = mongoose.model('DataLogger', dataLoggerSchema);
 
-module.exports.logData = async function logData(dataDate, dataTime, dataNo, dataVal) {
+module.exports.logData = async function logData(dataDate, dataTime, dataNo, dataVol) {
     const dataLogger = new DataLogger({
         date: dataDate,
         time: dataTime,
         index: dataNo,
-        val: [ dataVal ]
+        voltage: dataVol
     });
 
     const result = await dataLogger.save();
