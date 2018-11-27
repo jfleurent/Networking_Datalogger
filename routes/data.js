@@ -25,4 +25,4 @@ async function logData() {
 
 logData();
 
-module.exports = mongoose;
+// module.exports = mongoose;
