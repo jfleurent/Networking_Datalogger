@@ -8,6 +8,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatNativeDateModule} from '@angular/material';
 import {MatInputModule} from '@angular/material';
 import {MatButtonModule} from '@angular/material/button';
+import {FormsModule,ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -22,10 +23,12 @@ import {MatButtonModule} from '@angular/material/button';
     MatFormFieldModule,
     MatNativeDateModule,
     MatInputModule,
-    MatButtonModule
-
+    MatButtonModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [MatDatepickerModule],
+  entryComponents: [AppComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,19 +1,28 @@
 import { Component } from '@angular/core';
 import FusionCharts from 'fusioncharts/core';
 import line from 'fusioncharts/viz/line';
+import {MatDatepickerInputEvent} from '@angular/material/datepicker';
 FusionCharts.addDep(line);
-
+var date
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent {
 
   title = 'DataLoggerClient';
-  onClickMe() {
-    
+
+  addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
+   date = event.value
   }
+
+  onClickMe() {
+   console.log(date)
+  }
+
+
   ngOnInit() {
     var chartInstance = new FusionCharts({
       type: 'line',

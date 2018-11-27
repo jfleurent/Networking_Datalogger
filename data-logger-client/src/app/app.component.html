@@ -4,11 +4,13 @@
   </div>
   <div id="chart-container"></div>
   <div id="date-picker">
-    <mat-form-field>
-      <input matInput [matDatepicker]="picker" placeholder="Choose a date">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
+    <form >
+        <mat-form-field>
+            <input matInput [matDatepicker]="picker" placeholder="Choose a date" ngControl="Choose a date" [formControl]="date"(dateInput)="addEvent('input', $event)" (dateChange)="addEvent('change', $event)">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+    </form>
     <button mat-raised-button color="primary" (click)="onClickMe()">Submit</button>
   </div>
 </body>
