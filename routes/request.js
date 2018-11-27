@@ -1,4 +1,5 @@
 const http = require('http');
+const data = require('./data');
 
 var obj;
 var time;
@@ -32,6 +33,7 @@ function fetchData(address) {
             console.log(`Time: ${time}`);
             console.log(`Index: ${index}`);
             console.log(`Value: ${val}`);
+            data.logData(time, index, val);
         });
     });
     req.on('error', (e) => {

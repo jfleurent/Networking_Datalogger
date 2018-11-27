@@ -2,7 +2,6 @@ const http = require ('http');
 const express = require ('express');
 const helmet = require('helmet');
 const morgan = require('morgan');
-// const data = require('./routes/data');
 const body = require('./routes/request');
 const app = express();
 

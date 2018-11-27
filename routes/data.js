@@ -13,16 +13,13 @@ const dataLoggerSchema = new mongoose.Schema({
 
 const DataLogger = mongoose.model('DataLogger', dataLoggerSchema);
 
-async function logData() {
+module.exports.logData = async function logData(dataTime, dataNo, dataVal) {
     const dataLogger = new DataLogger({
-        number: 1,
-        val: [ 3 ]
+        time: dataTime,
+        number: dataNo,
+        val: [ dataVal ]
     });
 
     const result = await dataLogger.save();
     console.log(result);
 }
-
-logData();
-
-// module.exports = mongoose;
