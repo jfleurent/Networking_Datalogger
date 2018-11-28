@@ -16,6 +16,7 @@ module.exports.address = function setUrl(address) {
         path: "/?command=DataQuery&uri=dl:Average5Min&format=json&mode=most-recent&p1=1"
     }
     var endpoint = `http://${dataloggerAddress.ip}${dataloggerAddress.path}`;
+    fetchData(endpoint);
     setInterval( function() { fetchData(endpoint); }, 300000);
 };
 
@@ -49,7 +50,7 @@ router.get('/:date', (req, res) => {
     const dateQuery = req.params.date;
     const query = {date: dateQuery};
     async function getLoggedData(query) {
-        const loggedData = await data.DataLogger.find(query, {_id: 0}).select({time: 1, voltage: 1});
+        const loggedData = await data.DataLogger.find(query, {_id: 0}).select({label: 1, value: 1});
         var table = {
             chart: {
                 "caption": "Datalogger information",
