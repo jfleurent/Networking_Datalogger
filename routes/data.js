@@ -25,3 +25,5 @@ module.exports.logData = async function logData(dataDate, dataTime, dataNo, data
     const result = await dataLogger.save();
     console.log(result);
 }
+
+module.exports.DataLogger = DataLogger;
