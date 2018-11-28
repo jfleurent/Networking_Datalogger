@@ -4,6 +4,7 @@ import line from 'fusioncharts/viz/line';
 import {MatDatepickerInputEvent} from '@angular/material/datepicker';
 FusionCharts.addDep(line);
 var date;
+var chartInstance;
 
 function convertDate(date) {
   //Nov 24 2018
@@ -62,11 +63,13 @@ export class AppComponent {
   }
 
   onClickMe() {
+    chartInstance.setJSONUrl('172.28.76.169/'+convertDate(date));
+    chartInstance.render();
    console.log(convertDate(date))
   }
 
   ngOnInit() {
-    var chartInstance = new FusionCharts({
+    chartInstance = new FusionCharts({
       type: 'line',
       width: '800', // Width of the chart
       height: '400', // Height of the chart
