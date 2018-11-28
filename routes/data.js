@@ -7,9 +7,9 @@ mongoose.connect('mongodb://localhost/data', {useNewUrlParser: true})
 
 const dataLoggerSchema = new mongoose.Schema({
     date: String,
-    time: String,
+    label: String,
     index: Number,
-    voltage: Number
+    value: Number
 });
 
 const DataLogger = mongoose.model('DataLogger', dataLoggerSchema);
@@ -17,9 +17,9 @@ const DataLogger = mongoose.model('DataLogger', dataLoggerSchema);
 module.exports.logData = async function logData(dataDate, dataTime, dataNo, dataVol) {
     const dataLogger = new DataLogger({
         date: dataDate,
-        time: dataTime,
+        label: dataTime,
         index: dataNo,
-        voltage: dataVol
+        value: dataVol
     });
 
     const result = await dataLogger.save();

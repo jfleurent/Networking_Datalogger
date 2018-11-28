@@ -16,8 +16,8 @@ if (process.argv.length <= 2) {
 const datalogger_address = process.argv[2];
 body.address(datalogger_address);
 app.use('/', body.router);
-app.get('', (req, res) => {
-    res.send("Hello from localhost port 80");
-});
+// app.get('', (req, res) => {
+//     res.send("Hello from localhost port 80");
+// });
 
 app.listen(port,() => console.log(`Listening on port ${port}...`));

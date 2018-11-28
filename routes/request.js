@@ -51,7 +51,7 @@ router.get('/:date', (req, res) => {
     async function getLoggedData(query) {
         const loggedData = await data.DataLogger.find(query, {_id: 0}).select({time: 1, voltage: 1});
         var table = {
-            char: {
+            chart: {
                 "caption": "Datalogger information",
                 "subCaption": "Displays the voltage being read from the datalogger",
                 "xAxisName": "Time (s)",
