@@ -16,7 +16,6 @@ module.exports.address = function setUrl(address) {
         path: "/?command=DataQuery&uri=dl:Average5Min&format=json&mode=most-recent&p1=1"
     }
     var endpoint = `http://${dataloggerAddress.ip}${dataloggerAddress.path}`;
-    fetchData(endpoint);
     setInterval( function() { fetchData(endpoint); }, 300000);
 };
 
@@ -51,8 +50,19 @@ router.get('/:date', (req, res) => {
     const query = {date: dateQuery};
     async function getLoggedData(query) {
         const loggedData = await data.DataLogger.find(query, {_id: 0}).select({time: 1, voltage: 1});
-        console.log(loggedData);
-        res.send(loggedData);
+        var table = {
+            char: {
+                "caption": "Datalogger information",
+                "subCaption": "Displays the voltage being read from the datalogger",
+                "xAxisName": "Time (s)",
+                "yAxisName": "Voltage (V)",
+                "numberSuffix": "V",
+                "theme": "fusion",
+                "color" : "#29C3BE",
+            },
+            data: loggedData
+        };
+        res.send(table);
     }
     getLoggedData(query);
 });
