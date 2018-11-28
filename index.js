@@ -1,3 +1,4 @@
+const http = require ('http');
 const express = require ('express');
 const helmet = require('helmet');
 const morgan = require('morgan');
@@ -14,8 +15,9 @@ if (process.argv.length <= 2) {
 }
 const datalogger_address = process.argv[2];
 body.address(datalogger_address);
-app.use('', (req, res) => {
-    res.send(`Connected to ${port}`);
-});
 app.use('/', body.router);
+app.get('', (req, res) => {
+    res.send("Hello from localhost port 80");
+});
+
 app.listen(port,() => console.log(`Listening on port ${port}...`));

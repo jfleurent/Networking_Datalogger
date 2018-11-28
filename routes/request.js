@@ -46,7 +46,7 @@ function fetchData(address) {
     req.end();
 }
 
-router.get('/api/:date', (req, res) => {
+router.get('/:date', (req, res) => {
     const dateQuery = req.params.date;
     const query = {date: dateQuery};
     async function getLoggedData(query) {
