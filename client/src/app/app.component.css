@@ -1,0 +1,40 @@
+html,body, #background
+{
+    min-height: 100vh;
+    min-width: 100vw;
+    background-color: #004785;
+    padding: 0;
+    margin: 0;
+}
+
+
+#chart-container
+{
+  margin: 0 auto;
+  padding-top: 20px;
+  width: 800px;
+}
+
+#date-picker{
+  display: inline-block;
+  width: 300px;
+  background-color: #DCDCDC;
+  padding:10px;
+  margin-top: 10px;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 10px;
+  left:0;
+  right: 0;
+}
+
+#fgcu_logo_container
+{
+  background-color: #FFF;
+}
+#img_holder
+{
+  width:205px;
+  float: left;
+}
