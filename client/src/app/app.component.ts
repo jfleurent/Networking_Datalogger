@@ -63,8 +63,7 @@ export class AppComponent {
   }
 
   onClickMe() {
-    chartInstance.setJSONUrl('172.28.76.169/'+convertDate(date));
-    chartInstance.render();
+    chartInstance.setJSONUrl('http://localhost:80/'+convertDate(date));
    console.log(convertDate(date))
   }
 
