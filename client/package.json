@@ -11,22 +11,13 @@
   },
   "private": true,
   "dependencies": {
-<<<<<<< HEAD:data-logger-client/package.json
-    "@angular/animations": "^7.1.0",
-=======
     "@angular/animations": "~7.1.0",
->>>>>>> 8d9e6d250b11f88bdeec0ad9446980035045e34a:client/package.json
     "@angular/cdk": "^7.1.0",
     "@angular/common": "~7.1.0",
     "@angular/compiler": "~7.1.0",
     "@angular/core": "~7.1.0",
-<<<<<<< HEAD:data-logger-client/package.json
     "@angular/forms": "~7.1.0",
     "@angular/http": "~7.1.0",
-=======
-    "@angular/forms": "^7.1.0",
-    "@angular/http": "^7.1.0",
->>>>>>> 8d9e6d250b11f88bdeec0ad9446980035045e34a:client/package.json
     "@angular/material": "^7.1.0",
     "@angular/platform-browser": "~7.1.0",
     "@angular/platform-browser-dynamic": "~7.1.0",
@@ -41,18 +32,13 @@
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.11.0",
+    "@angular-devkit/build-angular": "^0.11.4",
     "@angular/cli": "~7.1.0",
     "@angular/compiler-cli": "~7.1.0",
     "@angular/language-service": "~7.1.0",
-<<<<<<< HEAD:data-logger-client/package.json
-    "@types/node": "~10.12.10",
     "@types/jasmine": "~3.3.0",
-=======
-    "@types/node": "~8.9.4",
-    "@types/jasmine": "~2.8.8",
->>>>>>> 8d9e6d250b11f88bdeec0ad9446980035045e34a:client/package.json
     "@types/jasminewd2": "~2.0.3",
+    "@types/node": "~10.12.10",
     "codelyzer": "~4.5.0",
     "jasmine-core": "~3.3.0",
     "jasmine-spec-reporter": "~4.2.1",
