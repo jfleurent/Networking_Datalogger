@@ -25,7 +25,7 @@ class LineGraphCard extends Component{
                             "rgba(0,0,0,0)",
                         ],
                         borderColor: [
-                            "rgba(0, 168, 76, 0.3)",
+                            "rgba(0, 23, 135, 0.3)"
                         ]
                     },
                     {
@@ -35,7 +35,7 @@ class LineGraphCard extends Component{
                             "rgba(0,0,0,0)"
                         ],
                         borderColor: [
-                            "rgba(0, 23, 135, 0.3)"
+                            "rgba(0, 168, 76, 0.3)"
                         ]
                     }
                 ]

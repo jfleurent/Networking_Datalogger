@@ -45,7 +45,7 @@ class BarGraphCard extends Component{
             <CardHeader
             title={
                 <Typography  variant="h5" component="h1" style={{ marginLeft: 200}}>
-                    {this.props.cardData.title}
+                    {'Daily: '+this.props.cardData.title}
                 </Typography>
             }
             action={
