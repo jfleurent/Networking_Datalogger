@@ -47,7 +47,7 @@ class LineGraphCard extends Component{
         return <Card style={{marginLeft: 100, marginRight: 100, marginTop: 20}}>
             <CardHeader
                 title={
-                    <Typography  variant="h5" component="h1">
+                    <Typography  variant="h5" component="h1" style={{ marginLeft: 200}}>
                         Week: Temperature vs Light
                     </Typography>
                 }

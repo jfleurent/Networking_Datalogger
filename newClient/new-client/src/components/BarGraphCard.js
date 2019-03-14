@@ -54,7 +54,7 @@ class BarGraphCard extends Component{
         return <Card style={{marginLeft: 100, marginRight: 50, marginTop: 20, width: 900}}>
             <CardHeader
             title={
-                <Typography  variant="h5" component="h1">
+                <Typography  variant="h5" component="h1" style={{ marginLeft: 200}}>
                 Light
                 </Typography>
             }
