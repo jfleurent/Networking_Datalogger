@@ -19,10 +19,23 @@ class App extends Component {
                 <Appbar/>
                 <GridList cols={2.1} cellHeight={500}>
                     <GridListTile>
-                        <BarGraphCard/>
+                        <BarGraphCard
+                            cardData = {{
+                                title: 'Light',
+                                borderColor: 'rgba(0, 23, 135, 0.3)',
+                                backgroundColor: 'rgba(0,31,189,0.1)',
+                                graphData: [10, 4, 5, 4, 8, 5, 7, 3, 0]
+                            }}
+                        />
                     </GridListTile>
                     <GridListTile>
-                        <BarGraphCard/>
+                        <BarGraphCard
+                            cardData = {{title: 'Temperature',
+                                borderColor: 'rgba(0, 168, 76, 0.3)',
+                                backgroundColor: 'rgba(0,201,91,0.1)',
+                                graphData: [4, 6, 1, 5, 12, 2, 1, 4, 0]
+                            }}
+                        />
                     </GridListTile>
                 </GridList>
                 <LineGraphCard/>
