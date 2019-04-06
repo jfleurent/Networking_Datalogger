@@ -13,11 +13,12 @@ var requestNum = 0;
 module.exports.address = function setUrl(address) {
     var dataloggerAddress = {
         ip: address,
-        path: "/?command=DataQuery&uri=dl:Average5Min&format=json&mode=most-recent&p1=1"
+        path: "/?command=DataQuery&uri=dl:Thirty_Minutes&format=json&mode=most-recent&p1=1"
     }
     var endpoint = `http://${dataloggerAddress.ip}${dataloggerAddress.path}`;
     fetchData(endpoint);
-    setInterval( function() { fetchData(endpoint); }, 300000);
+    // setInterval function calls the fetchData function every 1800000 miliseconds or 30 Min
+    setInterval( function() { fetchData(endpoint); }, 1800000);
 };
 
 function ConvertJSON(obj) {
