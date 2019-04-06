@@ -9,7 +9,7 @@ app.use(helmet());
 app.use(morgan('tiny'));
 
 const port = process.env.PORT || 80;
-datalogger_address = "69.88.163.52"
+var datalogger_address = "69.88.163.52"
 if (process.argv.length > 1) {
     const datalogger_address = process.argv[2];
 }
