@@ -19,7 +19,8 @@ When running the application, include the ip-address for the datalogger as an ar
 
 ### MongoDB installation
 1. install [MongoDB](https://www.mongodb.com/download-center?jmp=nav)
+    1. Add it to the environment variables [PATH] (https://stackoverflow.com/a/41507803)
 2. create a folder `md c:\data\db`, here is where the database is saved by default
-3. run mongod, it will instantiate the mongodb server
+3. run mongod, it will instantiate the mongodb server, default port 27017
 4. install [MongoDB Compass](https://www.mongodb.com/download-center/compass)
 5. In the connect to Host, specify what host and port to connect to
