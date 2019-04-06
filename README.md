@@ -26,4 +26,7 @@ When running the application, include the ip-address for the datalogger as an ar
 5. In the connect to Host, specify what host and port to connect to
 
 ### DataLogger Configuration
+* scw_files folder contains the program configuration for the Datalogger data recording
+* Phototransistor configuration - Uses differential Voltage to calculate the voltage. The lower the voltage means that there is light present, the higher the voltage means there is lack of light. So far the lowest value for when there's light present it's 0.34mV<br> ![alt text](https://github.com/jfleurent/Networking_Datalogger/blob/dev/images/Phototransistor_Differential_Voltage.PNG)
+* Temperature sensor configuration - Uses Single-End Voltage to get the temperature. <br> It uses the formula `Temp Celcius = 100 * (voltage reading) - 50`<br> [alt text](https://github.com/jfleurent/Networking_Datalogger/blob/dev/images/Temerature_SingleEnd_Voltage.PNG)
 * Configuration for the Static IP address:<br>![alt text](https://github.com/jfleurent/Networking_Datalogger/blob/dev/images/DeviceConfig_StaticIpConfig.png)
