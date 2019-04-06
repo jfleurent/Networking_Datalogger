@@ -24,3 +24,6 @@ When running the application, include the ip-address for the datalogger as an ar
 3. run mongod, it will instantiate the mongodb server, default port 27017
 4. install [MongoDB Compass](https://www.mongodb.com/download-center/compass)
 5. In the connect to Host, specify what host and port to connect to
+
+### DataLogger Configuration
+* Configuration for the Static IP address:<br>![alt text](https://github.com/jfleurent/Networking_Datalogger/blob/dev/images/DeviceConfig_StaticIpConfig.png)
