@@ -55,11 +55,12 @@ function fetchData(address) {
     req.end();
 }
 
+// `date` has to follow the format: 2019-04-06
 router.get('/:date', (req, res) => {
     const dateQuery = req.params.date;
     const query = {date: dateQuery};
     async function getLoggedData(query) {
-        const loggedData = await data.DataLogger.find(query, {_id: 0}).select({label: 1, value: 1});
+        const loggedData = await data.DataLogger.find({"date" : dateQuery});
         var table = {
             chart: {
                 "caption": "Datalogger information",
