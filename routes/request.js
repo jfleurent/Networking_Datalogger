@@ -56,7 +56,7 @@ function fetchData(address) {
 }
 
 // `date` has to follow the format: 2019-04-06
-router.get('/:date', (req, res) => {
+router.get('/date/:date', (req, res) => {
     const dateQuery = req.params.date;
     const query = {date: dateQuery};
     async function getLoggedData(query) {
@@ -77,5 +77,12 @@ router.get('/:date', (req, res) => {
     }
     getLoggedData(query);
 });
+
+// endpoint for querying data between date ranges.
+// router.get('/daterange/:start/:end', (req, res) => {
+//     const start = req.params.start;
+//     const dateRangeQuery = `${start.toIsoString()}-${req.params.end}`;
+//     console.log(dateRangeQuery);
+// });
 
 module.exports.router = router;
