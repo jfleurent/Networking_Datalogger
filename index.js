@@ -10,8 +10,8 @@ app.use(morgan('tiny'));
 
 const port = process.env.PORT || 80;
 var datalogger_address = "69.88.163.52"
-if (process.argv.length > 1) {
-    const datalogger_address = process.argv[2];
+if (process.argv.length > 2) {
+    datalogger_address = process.argv[2];
 }
 console.log(`Connecting to: http://${datalogger_address}/`);
 body.address(datalogger_address);
