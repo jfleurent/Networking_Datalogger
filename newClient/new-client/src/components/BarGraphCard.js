@@ -20,6 +20,11 @@ class BarGraphCard extends Component {
     }
 
     componentDidMount() {
+        let hourLabels = [];
+        let m = moment();
+        for (let i = 0; i < 24; i++) {
+            hourLabels[i] = m.hour(i).minute(0).format("hh:mm A")
+        }
         const node = this.node;
         for (let i = 0; i < 8; i++) {
             borderColors[i] = this.props.cardData.borderColor;
@@ -28,11 +33,11 @@ class BarGraphCard extends Component {
         this.myChart = new Chart(node, {
             type: "bar",
             data: {
-                labels: ["12:00 a.m.", "3:00 a.m.", "6:00 a.m.", "9:00 a.m.", "12:00 p.m.", "3:00 p.m.", "6:00 p.m.", "9:00 p.m."],
+                labels: hourLabels,
                 datasets: [
                     {
                         label: this.props.cardData.title,
-                        data: this.props.cardData.graphData,
+                        data: [],
                         backgroundColor: backgoundColors,
                         borderColor: borderColors,
                         borderWidth: 2
@@ -63,31 +68,29 @@ class BarGraphCard extends Component {
         Promise.all(a).then(values => {
             console.log(values);
             this.myChart.data.datasets[0].data = [];
-            let aa = 0;
-            let a1 = 0;
-            let startHour = 3;
-            for (let i = 0, j = 0; i < values.length; i++) {
-                for(let k = 0; k < values[i].length; k++){
-                    console.log(b.hour(0).toISOString() + ' | ' +  moment(values[i][k].isoDate).hour(0).toISOString());
-                    if (b.hour(startHour).isSameOrAfter(moment(values[i][k].isoDate))) {
-                        aa += values[i][k].temperature;
-                        a1++;
-                    }
-                    else{
-                        startHour+=3;
-                        this.myChart.data.datasets[0].data[j++] = aa / (a1 === 0 ? 1 : a1);
+            for (let i = 0, j = 0, k = 0; i < 24; i++) {
+                let count = 0;
+                let sum = 0;
+                if(values[0][j] !== undefined){
+                    while (moment(values[0][j].isoDate).hour() === i) {
+                        sum += this.props.cardData.title === 'Light' ? values[0][j].phototransistor : values[0][j].temperature;
+                        count++;
+                        j++;
+                        if (values[0][j] === undefined){
+                            break;
+                        }
                     }
                 }
-            }
-            while(this.myChart.data.datasets[0].data.length <){
-
+                this.myChart.data.datasets[0].data[k++] = sum / (count === 0 ? 1 : count);
+                count = 0;
+                sum = 0;
             }
             this.myChart.update();
         })
     }
 
     render() {
-        return <Card style={{marginLeft: 100, marginRight: 50, marginTop: 20, width: '75%'}}>
+        return <Card style={{marginLeft: 100, marginRight: 50, marginTop: 20, width: '75%', height: '500px'}}>
             <CardHeader
                 title={
                     <Typography variant="h5" component="h1" style={{marginLeft: 'auto'}}>
@@ -112,7 +115,7 @@ class BarGraphCard extends Component {
                 }
             />
             <canvas
-                style={{width: '100%', height: '300px'}}
+                style={{width: '100%', height: '70%'}}
                 ref={node => (this.node = node)}
             />
         </Card>

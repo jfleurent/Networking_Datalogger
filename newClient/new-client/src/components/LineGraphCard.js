@@ -17,16 +17,20 @@ class LineGraphCard extends Component {
     }
 
     componentDidMount() {
+        const dayLabels = [];
+        let m = moment();
         const node = this.node;
-
+        for (let i = 0; i < 7; i++) {
+            dayLabels[i] = m.day(i).format("YYYY-MM-DD")
+        }
         this.myChart = new Chart(node, {
             type: "line",
             data: {
-                labels: ["2017-05-24", "2017-05-25", "2017-05-26", "2017-05-27", "2017-05-28", "2017-05-29", "2017-05-30"],
+                labels: dayLabels,
                 datasets: [
                     {
                         label: "Light",
-                        data: [5, 2, 1, 1, 1, 5, 7, 3],
+                        data: [],
                         backgroundColor: [
                             "rgba(0,0,0,0)",
                         ],
@@ -36,7 +40,7 @@ class LineGraphCard extends Component {
                     },
                     {
                         label: "Temperature",
-                        data: [1, 9, 9, 4, 11, 15, 10, 8],
+                        data: [],
                         backgroundColor: [
                             "rgba(0,0,0,0)"
                         ],
