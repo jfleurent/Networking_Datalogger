@@ -52,8 +52,8 @@ class BarGraphCard extends Component {
         console.log(this.myChart);
         const a = [];
         const b = moment(value + 'T00:00:00');
-        for (let i = 0; i < 7; i++) {
-            a[i] = fetch('http://localhost:80/date/' + b.day(i).format('YYYY-MM-DD'), {
+        for (let i = 0; i < 1; i++) {
+            a[i] = fetch('http://localhost:80/date/' + b.format('YYYY-MM-DD'), {
                 method: 'GET',
                 headers: {
                     Accept: 'application/json',
@@ -62,39 +62,26 @@ class BarGraphCard extends Component {
         }
         Promise.all(a).then(values => {
             console.log(values);
-            let aa = 0, bb = 0, cc = 0, dd = 0, ee = 0, ff = 0, gg = 0;
-            let a1 = 0, b1 = 0, c1 = 0, d1 = 0, e1 = 0, f1 = 0, g1 = 0;
-            for (let i = 0; i < values.length; i++) {
-                if (b.day(0).isSame(moment(values[i].isoDate))) {
-                    aa += values[i].temperature;
-                    a1++;
-                } else if (b.day(1).isSame(moment(values[i].isoDate))) {
-                    bb += values[i].temperature;
-                    b1++;
-                } else if (b.day(2).isSame(moment(values[i].isoDate))) {
-                    cc += values[i].temperature;
-                    c1++;
-                } else if (b.day(3).isSame(moment(values[i].isoDate))) {
-                    dd += values[i].temperature;
-                    d1++;
-                } else if (b.day(4).isSame(moment(values[i].isoDate))) {
-                    ee += values[i].temperature;
-                    e1++;
-                } else if (b.day(5).isSame(moment(values[i].isoDate))) {
-                    ff += values[i].temperature;
-                    f1++;
-                } else {
-                    gg += values[i].temperature;
-                    g1++;
+            this.myChart.data.datasets[0].data = [];
+            let aa = 0;
+            let a1 = 0;
+            let startHour = 3;
+            for (let i = 0, j = 0; i < values.length; i++) {
+                for(let k = 0; k < values[i].length; k++){
+                    console.log(b.hour(0).toISOString() + ' | ' +  moment(values[i][k].isoDate).hour(0).toISOString());
+                    if (b.hour(startHour).isSameOrAfter(moment(values[i][k].isoDate))) {
+                        aa += values[i][k].temperature;
+                        a1++;
+                    }
+                    else{
+                        startHour+=3;
+                        this.myChart.data.datasets[0].data[j++] = aa / (a1 === 0 ? 1 : a1);
+                    }
                 }
             }
-            this.myChart.data.datasets[0].data[0] = aa / (a1 === 0 ? 1 : a1);
-            this.myChart.data.datasets[0].data[1] = bb / (b1 === 0 ? 1 : b1);
-            this.myChart.data.datasets[0].data[2] = cc / (c1 === 0 ? 1 : c1);
-            this.myChart.data.datasets[0].data[3] = dd / (d1 === 0 ? 1 : d1);
-            this.myChart.data.datasets[0].data[4] = ee / (e1 === 0 ? 1 : e1);
-            this.myChart.data.datasets[0].data[5] = ff / (f1 === 0 ? 1 : f1);
-            this.myChart.data.datasets[0].data[6] = gg / (g1 === 0 ? 1 : g1);
+            while(this.myChart.data.datasets[0].data.length <){
+
+            }
             this.myChart.update();
         })
     }
