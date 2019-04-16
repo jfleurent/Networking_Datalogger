@@ -26,7 +26,7 @@ When running the application, include the ip-address for the datalogger as an ar
 5. In the connect to Host, specify what host and port to connect to
 
 ### NodeJS Configuration
-* The path to connecting to the datalogger is `/?command=DataQuery&uri=dl:Thirty_Minutes&format=json&mode=most-recent&p1=1`, in case it's needed to look at a different table use: `/?command=DataQuery&uri=dl:[TABlE_NAME]&format=json&mode=most-recent&p1=1`. It also uses the ip address `http://69.88.163.52/` as default for connecting. 
+* The path to connecting to the datalogger is `/?command=DataQuery&uri=dl:Thirty_Minutes&format=json&mode=most-recent&p1=1`, in case it's needed to look at a different table use: `/?command=DataQuery&uri=dl:[TABlE_NAME]&format=json&mode=most-recent&p1=1`. It also uses the ip address `http://69.88.163.52:10205/` as default for connecting. 
 
 ### DataLogger Configuration
 * scw_files folder contains the program configuration for the Datalogger data recording
