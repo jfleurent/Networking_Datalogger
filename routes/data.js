@@ -7,7 +7,7 @@ mongoose.connect('mongodb://localhost/data', {useNewUrlParser: true})
 
 const dataLoggerSchema = new mongoose.Schema({
     date: String,
-    label: String,
+    isoDate: String,
     index: Number,
     phototransistor: Number,
     temperature: Number
@@ -15,10 +15,10 @@ const dataLoggerSchema = new mongoose.Schema({
 
 const DataLogger = mongoose.model('sensor', dataLoggerSchema);
 
-module.exports.logData = async function logData(dataDate, dataTime, dataNo, dataPhototransistor, dataTemperature) {
+module.exports.logData = async function logData(dataDate, isoDate, dataNo, dataPhototransistor, dataTemperature) {
     const dataLogger = new DataLogger({
         date: dataDate,
-        label: dataTime,
+        isoDate: isoDate,
         index: dataNo,
         phototransistor: dataPhototransistor,
         temperature: dataTemperature

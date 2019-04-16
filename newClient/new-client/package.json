@@ -4,12 +4,13 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^3.9.2",
-    "chart.js": "^2.7.3",
+    "chart.js": "^2.8.0",
     "material-ui-next-pickers": "0.0.20",
     "material-ui-pickers": "^2.2.4",
     "react": "^16.8.3",
+    "react-datepicker": "^2.3.0",
     "react-dom": "^16.8.3",
-    "react-scripts": "2.1.5"
+    "react-scripts": "^2.1.5"
   },
   "scripts": {
     "start": "react-scripts start",

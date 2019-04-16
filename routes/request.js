@@ -5,7 +5,7 @@ const data = require('./data');
 
 var obj;
 var date;
-var time;
+var isoDate;
 var index;
 var phototransistor;
 var temperature;
@@ -24,14 +24,14 @@ module.exports.address = function setUrl(address) {
 
 function ConvertJSON(obj) {
     date = obj.data[0].time.substring(0, 10);
-    time = obj.data[0].time.substring(11, 19);
+    isoDate = obj.data[0].time;
     index = obj.data[0].no;
     phototransistor = obj.data[0].vals[0];
     temperature = obj.data[0].vals[1];
 }
 
 // Converts reading from voltage to Farenheit 
-function convertToFarenheit(temp) {
+function convertToFarenheit() {
     var tempCelcius = 100 * (temperature/1000) - 50;
     return Math.round((tempCelcius * (9/5) + 32) * 100) / 100;
 }
@@ -46,7 +46,7 @@ function fetchData(address) {
             ConvertJSON(obj);
         });
         res.on('end',() => {
-            data.logData(date, time, index, phototransistor, convertToFarenheit(temperature));
+            data.logData(date, isoDate, index, phototransistor, convertToFarenheit());
         });
     });
     req.on('error', (e) => {
@@ -55,26 +55,14 @@ function fetchData(address) {
     req.end();
 }
 
-router.get('/:date', (req, res) => {
+// `date` has to follow the format: 2019-04-06
+router.get('/date/:date', (req, res) => {
     const dateQuery = req.params.date;
-    const query = {date: dateQuery};
-    async function getLoggedData(query) {
-        const loggedData = await data.DataLogger.find(query, {_id: 0}).select({label: 1, value: 1});
-        var table = {
-            chart: {
-                "caption": "Datalogger information",
-                "subCaption": "Displays the voltage being read from the datalogger",
-                "xAxisName": "Time (s)",
-                "yAxisName": "Voltage (V)",
-                "numberSuffix": "V",
-                "theme": "fusion",
-                "color" : "#29C3BE",
-            },
-            data: loggedData
-        };
-        res.send(table);
+    async function getLoggedData() {
+        const loggedData = await data.DataLogger.find({"date" : dateQuery});
+        res.send(loggedData);
     }
-    getLoggedData(query);
+    getLoggedData();
 });
 
 module.exports.router = router;

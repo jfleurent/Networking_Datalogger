@@ -1,36 +1,43 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import React, {Component} from 'react';
 import TextField from '@material-ui/core/TextField';
 import {Card} from "@material-ui/core";
 import CardHeader from "@material-ui/core/CardHeader";
 import Typography from "@material-ui/core/Typography";
+import moment from "moment";
 
 
 let Chart = require("chart.js");
 let borderColors = [];
 let backgoundColors = [];
+let myChart = [];
 
-class BarGraphCard extends Component{
 
+class BarGraphCard extends Component {
     constructor(props) {
         super(props);
+        this.state = {inputValue: moment()};
+        this.handleChange = this.handleChange.bind(this);
     }
 
     componentDidMount() {
+        let hourLabels = [];
+        let m = moment();
+        for (let i = 0; i < 24; i++) {
+            hourLabels[i] = m.hour(i).minute(0).format("hh:mm A")
+        }
         const node = this.node;
-        for(let i = 0; i < 8; i++){
+        for (let i = 0; i < 8; i++) {
             borderColors[i] = this.props.cardData.borderColor;
             backgoundColors[i] = this.props.cardData.backgroundColor;
         }
-        let myChart = new Chart(node, {
+        this.myChart = new Chart(node, {
             type: "bar",
             data: {
-                labels: ["0:00","3:00","6:00","9:00","12:00","15:00","18:00","21:00"],
+                labels: hourLabels,
                 datasets: [
                     {
                         label: this.props.cardData.title,
-                        data: this.props.cardData.graphData,
+                        data: [],
                         backgroundColor: backgoundColors,
                         borderColor: borderColors,
                         borderWidth: 2
@@ -38,33 +45,77 @@ class BarGraphCard extends Component{
                 ]
             }
         });
+        console.log(this.myChart);
+    }
+
+    handleChange(value) {
+        this.setState({inputValue: value});
+        this.getValuesFromAPI(value);
+    }
+
+    getValuesFromAPI(value) {
+        console.log(this.myChart);
+        const a = [];
+        const b = moment(value + 'T00:00:00');
+        for (let i = 0; i < 1; i++) {
+            a[i] = fetch('http://localhost:80/date/' + b.format('YYYY-MM-DD'), {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json',
+                }
+            }).then(value => value.json());
+        }
+        Promise.all(a).then(values => {
+            console.log(values);
+            this.myChart.data.datasets[0].data = [];
+            for (let i = 0, j = 0, k = 0; i < 24; i++) {
+                let count = 0;
+                let sum = 0;
+                if(values[0][j] !== undefined){
+                    while (moment(values[0][j].isoDate).hour() === i) {
+                        sum += this.props.cardData.title === 'Light' ? values[0][j].phototransistor : values[0][j].temperature;
+                        count++;
+                        j++;
+                        if (values[0][j] === undefined){
+                            break;
+                        }
+                    }
+                }
+                this.myChart.data.datasets[0].data[k++] = sum / (count === 0 ? 1 : count);
+                count = 0;
+                sum = 0;
+            }
+            this.myChart.update();
+        })
     }
 
     render() {
-        return <Card style={{marginLeft: 100, marginRight: 50, marginTop: 20, width: 900}}>
+        return <Card style={{marginLeft: 100, marginRight: 50, marginTop: 20, width: '75%', height: '500px'}}>
             <CardHeader
-            title={
-                <Typography  variant="h5" component="h1" style={{ marginLeft: 200}}>
-                    {'Daily: '+this.props.cardData.title}
-                </Typography>
-            }
-            action={
-                <form noValidate>
-                    <TextField
-                        id="date"
-                        label="Date"
-                        type="date"
-                        style={{marginRight: 40}}
-                        defaultValue="2017-05-24"
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                    />
-                </form>
-            }
+                title={
+                    <Typography variant="h5" component="h1" style={{marginLeft: 'auto'}}>
+                        {'Daily: ' + this.props.cardData.title}
+                    </Typography>
+                }
+                action={
+                    <form noValidate>
+                        <TextField
+                            onChange={event => this.handleChange(event.target.value)}
+                            id="date"
+                            label="Date"
+                            type="date"
+                            style={{marginRight: 'auto'}}
+                            selected={this.state.inputValue}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                        />
+
+                    </form>
+                }
             />
             <canvas
-                style={{ width: 250, height: 100}}
+                style={{width: '100%', height: '70%'}}
                 ref={node => (this.node = node)}
             />
         </Card>
