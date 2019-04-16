@@ -14,7 +14,7 @@ var requestNum = 0;
 module.exports.address = function setUrl(address) {
     var dataloggerAddress = {
         ip: address,
-        path: "/?command=DataQuery&uri=dl:Thirty_Minutes&format=json&mode=most-recent&p1=1"
+        path: ":10205/?command=DataQuery&uri=dl:Thirty_Minutes&format=json&mode=most-recent&p1=1"
     }
     var endpoint = `http://${dataloggerAddress.ip}${dataloggerAddress.path}`;
     fetchData(endpoint);
