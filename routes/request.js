@@ -57,6 +57,7 @@ function fetchData(address) {
 
 // `date` has to follow the format: 2019-04-06
 router.get('/date/:date', (req, res) => {
+    res.header("Access-Control-Allow-Origin", "*");
     const dateQuery = req.params.date;
     async function getLoggedData() {
         const loggedData = await data.DataLogger.find({"date" : dateQuery});
