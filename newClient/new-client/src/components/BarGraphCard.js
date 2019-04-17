@@ -23,7 +23,7 @@ class BarGraphCard extends Component {
         let hourLabels = [];
         let m = moment();
         for (let i = 0; i < 24; i++) {
-            hourLabels[i] = m.hour(i).minute(0).format("dddd hh:mm A")
+            hourLabels[i] = m.hour(i).minute(0).format("hh:mm A")
         }
         const node = this.node;
         for (let i = 0; i < 8; i++) {
