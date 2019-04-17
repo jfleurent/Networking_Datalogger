@@ -23,11 +23,11 @@ class BarGraphCard extends Component {
         let hourLabels = [];
         let m = moment();
         for (let i = 0; i < 24; i++) {
-            hourLabels[i] = m.hour(i).minute(0).format("hh:mm A")
+            hourLabels[i] = m.hour(i).minute(0).format("dddd hh:mm A")
         }
         const node = this.node;
         for (let i = 0; i < 8; i++) {
-            borderColors[i] = this.props.cardData.borderColor;
+            borderColors[i] = this.props.cardData.c;
             backgoundColors[i] = this.props.cardData.backgroundColor;
         }
         this.myChart = new Chart(node, {
@@ -58,7 +58,7 @@ class BarGraphCard extends Component {
         const a = [];
         const b = moment(value + 'T00:00:00');
         for (let i = 0; i < 1; i++) {
-            a[i] = fetch('http://localhost:80/date/' + b.format('YYYY-MM-DD'), {
+            a[i] = fetch('http://54.165.32.160/date/' + b.format('YYYY-MM-DD'), {
                 method: 'GET',
                 headers: {
                     Accept: 'application/json',
@@ -73,7 +73,7 @@ class BarGraphCard extends Component {
                 let sum = 0;
                 if(values[0][j] !== undefined){
                     while (moment(values[0][j].isoDate).hour() === i) {
-                        sum += this.props.cardData.title === 'Light' ? values[0][j].phototransistor : values[0][j].temperature;
+                        sum += this.props.cardData.title === 'Light (lm)' ? values[0][j].phototransistor : values[0][j].temperature;
                         count++;
                         j++;
                         if (values[0][j] === undefined){
@@ -82,6 +82,8 @@ class BarGraphCard extends Component {
                     }
                 }
                 this.myChart.data.datasets[0].data[k++] = sum / (count === 0 ? 1 : count);
+                this.myChart.data.datasets[0].borderColor[k] = this.props.cardData.borderColor;
+                this.myChart.data.datasets[0].backgroundColor[k] = this.props.cardData.backgroundColor;
                 count = 0;
                 sum = 0;
             }

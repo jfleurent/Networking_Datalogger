@@ -21,7 +21,7 @@ class App extends Component {
                     <GridListTile>
                         <BarGraphCard
                             cardData = {{
-                                title: 'Light',
+                                title: 'Light (lm)',
                                 borderColor: 'rgba(0, 23, 135, 0.3)',
                                 backgroundColor: 'rgba(0,31,189,0.1)',
                                 graphData: [10, 4, 5, 4, 8, 5, 7, 3, 0]
@@ -30,7 +30,7 @@ class App extends Component {
                     </GridListTile>
                     <GridListTile>
                         <BarGraphCard
-                            cardData = {{title: 'Temperature',
+                            cardData = {{title: 'Temperature (F)',
                                 borderColor: 'rgba(0, 168, 76, 0.3)',
                                 backgroundColor: 'rgba(0,201,91,0.1)',
                                 graphData: [4, 6, 1, 5, 12, 2, 1, 4, 0]

@@ -8,7 +8,7 @@ const app = express();
 app.use(helmet());
 app.use(morgan('tiny'));
 
-const port = 10205;
+const port = 3001;
 var datalogger_address = "69.88.163.52"
 if (process.argv.length > 2) {
     datalogger_address = process.argv[2];

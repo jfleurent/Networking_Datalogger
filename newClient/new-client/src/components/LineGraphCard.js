@@ -21,7 +21,7 @@ class LineGraphCard extends Component {
         let m = moment();
         const node = this.node;
         for (let i = 0; i < 7; i++) {
-            dayLabels[i] = m.day(i).format("YYYY-MM-DD")
+            dayLabels[i] = m.day(i).format("dddd MM/DD/YYYY")
         }
         this.myChart = new Chart(node, {
             type: "line",
@@ -29,7 +29,7 @@ class LineGraphCard extends Component {
                 labels: dayLabels,
                 datasets: [
                     {
-                        label: "Light",
+                        label: "Light (hlm)",
                         data: [],
                         backgroundColor: [
                             "rgba(0,0,0,0)",
@@ -39,7 +39,7 @@ class LineGraphCard extends Component {
                         ]
                     },
                     {
-                        label: "Temperature",
+                        label: "Temperature (F)",
                         data: [],
                         backgroundColor: [
                             "rgba(0,0,0,0)"
@@ -63,7 +63,7 @@ class LineGraphCard extends Component {
         const a = [];
         const b = moment(value + 'T00:00:00');
         for (let i = 0; i < 7; i++) {
-            a[i] = fetch('http://localhost:80/date/' + b.day(i).format('YYYY-MM-DD'), {
+            a[i] = fetch('http://54.165.32.160/date/' + b.day(i).format('YYYY-MM-DD'), {
                 method: 'GET',
                 headers: {
                     Accept: 'application/json',
@@ -95,7 +95,7 @@ class LineGraphCard extends Component {
             <CardHeader
                 title={
                     <Typography variant="h5" component="h1" style={{marginLeft: 200}}>
-                        Week: Temperature vs Light
+                        Week: Temperature and Light
                     </Typography>
                 }
                 action={
